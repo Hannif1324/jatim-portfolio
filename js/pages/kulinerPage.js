@@ -1,8 +1,6 @@
-// js/pages/kulinerPage.js
 import { dataService } from '../services/dataService.js';
 import { modal_locasi } from '../components/ui/modal_locasi.js';
-import { bookmarkService } from '../services/bookmarkService.js';
-import { theme } from '../components/theme/theme.js';
+import { Card } from '../components/card.js';
 
 export class KulinerPage {
     constructor() {
@@ -11,40 +9,31 @@ export class KulinerPage {
         this.filterKota = 'all';
         this.loading = true;
         this.themeCleanup = null;
-        this._containerClickHandler = null;
-        this._containerDelegationAttached = false;
+
+        // untuk delegation & cleanup
+        this._onGlobalChange = this._onGlobalChange.bind(this);
+        this._delegationInstalled = false;
     }
 
     async init(container) {
         this.container = container;
-        
-        // CHECK AUTO FILTER DARI SEARCH - TAMBAHAN BARU
         this.checkAutoFilter();
-        
         await this.loadData();
         this.render();
         this.setupEventListeners();
         this.setupThemeListener();
-
-        try { window.appKulinerPage = this; } catch (e) {}
     }
 
-    // METHOD BARU: Cek dan apply filter otomatis dari search
     checkAutoFilter() {
         const autoFilterData = sessionStorage.getItem('autoFilterData');
         if (autoFilterData) {
             try {
                 const data = JSON.parse(autoFilterData);
-                
-                // Jika ini page kuliner dan data search adalah kuliner
                 if (data.type === 'kuliner' && data.kota) {
-                    console.log('🔄 Auto-filter kuliner by kota:', data.kota);
+                    console.log('🔄 Auto-filter wisata by kota:', data.kota);
                     this.filterKota = data.kota;
                 }
-                
-                // Hapus data setelah dipakai
                 sessionStorage.removeItem('autoFilterData');
-                
             } catch (error) {
                 console.error('Error parsing autoFilterData:', error);
                 sessionStorage.removeItem('autoFilterData');
@@ -52,180 +41,184 @@ export class KulinerPage {
         }
     }
 
-    // ... REST OF THE CODE REMAINS THE SAME ...
-
     async loadData() {
         this.loading = true;
         this.render();
+
         try {
-            const [kulinerData, kotaData] = await Promise.all([
-                dataService.getKuliner(),
-                dataService.getKota()
-            ]);
-            this.kulinerList = Array.isArray(kulinerData) ? kulinerData : [];
-            this.kotaList = Array.isArray(kotaData) ? kotaData : [];
+            // try multiple possible dataService method names (best-effort)
+            const getKulinerFn =
+                (dataService && typeof dataService.getAllKuliner === 'function' && dataService.getAllKuliner.bind(dataService)) ||
+                (dataService && typeof dataService.getKuliner === 'function' && dataService.getKuliner.bind(dataService)) ||
+                (dataService && typeof dataService.getAll === 'function' && (() => dataService.getAll('kuliner'))) ||
+                // LocalBase style helper (if implemented)
+                (dataService && typeof dataService.getCollection === 'function' && (() => dataService.getCollection('kuliner'))) ||
+                null;
+
+            const getKotaFn =
+                (dataService && typeof dataService.getAllKota === 'function' && dataService.getAllKota.bind(dataService)) ||
+                (dataService && typeof dataService.getKota === 'function' && dataService.getKota.bind(dataService)) ||
+                (dataService && typeof dataService.getAll === 'function' && (() => dataService.getAll('kota'))) ||
+                (dataService && typeof dataService.getCollection === 'function' && (() => dataService.getCollection('kota'))) ||
+                null;
+
+            // If both are null, throw so we land in catch and show error nicely
+            if (!getKulinerFn && !getKotaFn) {
+                throw new Error('No suitable dataService methods found for kuliner/kota. Check dataService exports.');
+            }
+
+            // Call both safely (use [] for missing to still resolve)
+            const kulinerPromise = getKulinerFn ? Promise.resolve(getKulinerFn()) : Promise.resolve([]);
+            const kotaPromise = getKotaFn ? Promise.resolve(getKotaFn()) : Promise.resolve([]);
+
+            const [kulinerData, kotaData] = await Promise.all([kulinerPromise, kotaPromise]);
+
+            // normalize results: LocalBase may return {data: [...] } or array directly
+            this.kulinerList = Array.isArray(kulinerData) ? kulinerData : (kulinerData && Array.isArray(kulinerData.data) ? kulinerData.data : []);
+            this.kotaList = Array.isArray(kotaData) ? kotaData : (kotaData && Array.isArray(kotaData.data) ? kotaData.data : []);
+
         } catch (err) {
-            console.error('Error loading kuliner/kota:', err);
+            console.error('Error loading kuliner data (robust loader):', err);
+            try {
+                if (Notification && typeof Notification.show === 'function') {
+                    Notification.show('Gagal memuat data kuliner. Periksa console.', 'error');
+                }
+            } catch (e) { /* ignore */ }
+            // keep lists empty so render shows "Tidak ada kuliner ditemukan"
             this.kulinerList = [];
             this.kotaList = [];
-        } finally {
-            this.loading = false;
-            this.render();
+        }
+
+        this.loading = false;
+        this.render();
+    }
+
+    handleDetailClick(item) {
+        // call modal_locasi.show || modal_locasi.open || fallback alert
+        try {
+            if (modal_locasi && typeof modal_locasi.show === 'function') {
+                modal_locasi.show(item);
+            } else if (modal_locasi && typeof modal_locasi.open === 'function') {
+                modal_locasi.open(item.nama || item.title || '', item);
+            } else {
+                // safe fallback — avoid crashing
+                alert(`${item.nama || item.title}\n${item.kota || ''}\n\nDeskripsi singkat tidak tersedia.`);
+            }
+        } catch (err) {
+            console.error('Error opening modal for item:', err, item);
         }
     }
 
     getFilteredKuliner() {
-        if (!this.filterKota || this.filterKota === 'all') return this.kulinerList;
-        const target = String(this.filterKota).toLowerCase().trim();
-        return this.kulinerList.filter(k => String(k.kota || '').toLowerCase().trim() === target);
-    }
-
-    handleDetailClick(kuliner) {
-        if (!kuliner) return;
-        modal_locasi.open(kuliner.nama, kuliner);
+        if (this.filterKota === 'all') {
+            return this.kulinerList;
+        }
+        return this.kulinerList.filter(k => k.kota === this.filterKota);
     }
 
     render() {
-        if (!this.container) return;
         if (this.loading) {
             this.container.innerHTML = '<div class="text-center p-8">Memuat data kuliner...</div>';
             return;
         }
 
-        const filtered = this.getFilteredKuliner();
+        const filteredKuliner = this.getFilteredKuliner();
 
         this.container.innerHTML = `
             <div class="space-y-8 fade-in">
                 <div class="text-center">
-                    <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Daftar Kuliner Khas Jawa Timur</h1>
-                    <p class="mt-2 text-gray-600 dark:text-gray-400">Cicipi kelezatan otentik dari berbagai daerah.</p>
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-white">Kuliner Jawa Timur</h1>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Nikmati citarasa khas setiap kota.</p>
                 </div>
 
                 <div class="flex justify-center">
                     <select
-                        id="kota-filter-kuliner"
+                        id="kota-filter"
                         class="p-2 border rounded-md bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 focus:ring-primary-500 focus:border-primary-500 text-gray-800 dark:text-white"
                     >
                         <option value="all">Semua Kota</option>
-                        ${this.kotaList.map(k => `<option value="${String(k.nama).trim()}">${k.nama}</option>`).join('')}
+                        ${this.kotaList.map(kota => `
+                            <option value="${kota.nama}" ${this.filterKota === kota.nama ? 'selected' : ''}>${kota.nama}</option>
+                        `).join('')}
                     </select>
                 </div>
 
-                <div id="kuliner-cards-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    ${filtered.map(k => this.renderKulinerCard(k)).join('')}
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="kuliner-cards-container">
+                    ${filteredKuliner.map(item => {
+                        const card = new Card(
+                            { ...item, type: 'kuliner' },
+                            (clickedItem) => this.handleDetailClick(clickedItem)
+                        );
+                        return card.render();
+                    }).join('')}
                 </div>
 
-                ${filtered.length === 0 ? `
+                ${filteredKuliner.length === 0 ? `
                     <div class="text-center py-12">
                         <p class="text-gray-500 dark:text-gray-400">Tidak ada kuliner ditemukan.</p>
                     </div>
                 ` : ''}
             </div>
         `;
-        // jangan panggil setupEventListeners di sini — dipanggil di luar agar tidak dobel attach
+
+        this.setupCardsEventListeners();
     }
 
-    renderKulinerCard(kuliner) {
-        const isBookmarked = bookmarkService.isBookmarked(kuliner.id);
-        return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-all duration-300" data-id="${kuliner.id}">
-                <div class="relative">
-                    <img class="h-48 w-full object-cover block rounded-t-lg" src="${kuliner.gambar}" alt="${kuliner.nama}" />
-                    <button
-                        class="bookmark-btn absolute top-3 right-3 p-2 rounded-full backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        data-item='${JSON.stringify({
-                            id: kuliner.id,
-                            type: 'kuliner',
-                            nama: kuliner.nama,
-                            kota: kuliner.kota
-                        })}'
-                        aria-label="Bookmark"
-                    >
-                        <svg class="w-5 h-5 ${isBookmarked ? 'text-primary-500 fill-current' : 'text-gray-500 dark:text-gray-400'}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" ${isBookmarked ? 'fill="currentColor"' : 'fill="none" stroke="currentColor" stroke-width="1.5"'} />
-                        </svg>
-                    </button>
-                </div>
-                <div class="p-4">
-                    ${kuliner.kategori ? `<p class="text-xs text-primary-500 font-semibold uppercase">${kuliner.kategori}</p>` : ''}
-                    <h3 class="text-lg font-semibold mt-1 text-gray-800 dark:text-white">${kuliner.nama}</h3>
-                    ${kuliner.kota ? `<p class="text-sm text-gray-600 dark:text-gray-400">${kuliner.kota}</p>` : ''}
-                    <div class="mt-4">
-                        <button
-                            class="view-detail w-full text-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-                            data-id="${kuliner.id}"
-                        >Lihat Detail</button>
-                    </div>
-                </div>
-            </div>
-        `;
+    setupCardsEventListeners() {
+        const cardsContainer = document.getElementById('kuliner-cards-container');
+        if (cardsContainer) {
+            const cardElements = cardsContainer.querySelectorAll('.card');            
+            cardElements.forEach((cardElement, index) => {
+                const kuliner = this.getFilteredKuliner()[index];
+                if (kuliner) {
+                    Card.setupEventListeners(
+                        cardElement, 
+                        (item) => this.handleDetailClick(item)
+                    );
+                }
+            });
+        }
     }
 
     setupEventListeners() {
-    if (!this.container) return;
+        // pasang sekali per instance — jika sudah terpasang, skip
+        if (this._delegationInstalled) {
+            return;
+        }
+        this._delegationInstalled = true;
 
-    // --- SELECT handler (FIXED) ---
-    // Gunakan event delegation untuk select juga, atau attach langsung
-    const filterSelect = this.container.querySelector('#kota-filter-kuliner');
-    if (filterSelect) {
-        // Hapus event listener lama dulu (jika ada)
-        const newFilterSelect = filterSelect.cloneNode(true);
-        filterSelect.parentNode.replaceChild(newFilterSelect, filterSelect);
-        
-        // Set nilai select berdasarkan state current
-        newFilterSelect.value = this.filterKota;
-        
-        // Attach event listener baru
-        newFilterSelect.addEventListener('change', (e) => {
-            const raw = String(e.target.value || 'all').trim();
-            this.filterKota = raw;
-            console.log('[KulinerPage] filter changed ->', this.filterKota);
-            this.render();
-            // Setelah render, setup event listeners lagi
-            this.setupEventListeners();
-        });
+        // Delegasi di level document (lebih aman). Kita pastikan event berasal dari dalam container.
+        document.addEventListener('change', this._onGlobalChange, true);
     }
 
-    // --- Delegated click handler (tetap sama) ---
-    if (!this._containerDelegationAttached) {
-        this._containerClickHandler = (e) => {
-            // detail
-            const detailBtn = e.target.closest('.view-detail');
-            if (detailBtn && this.container.contains(detailBtn)) {
-                const id = detailBtn.dataset.id;
-                const kul = this.kulinerList.find(item => item.id === id);
-                if (kul) this.handleDetailClick(kul);
+    // handler delegasi
+    _onGlobalChange(e) {
+        try {
+            // cari element select dalam event path
+            const sel = e.target.closest && e.target.closest('#kota-filter');
+            if (!sel) return; // not our event
+
+            // ensure the select belongs to this page's container (avoid catching other pages)
+            if (!this.container || !this.container.contains(sel)) {
                 return;
             }
 
-            // bookmark
-            const bookmarkBtn = e.target.closest('.bookmark-btn');
-            if (bookmarkBtn && this.container.contains(bookmarkBtn)) {
-                try {
-                    const itemData = JSON.parse(bookmarkBtn.dataset.item || '{}');
-                    if (itemData && itemData.id) {
-                        bookmarkService.toggleBookmark(itemData);
-                        this.render();
-                        this.setupEventListeners(); // ← penting setelah render
-                    }
-                } catch (err) {
-                    console.error('Invalid bookmark data:', err);
-                }
-            }
-        };
+            // update state and render (debounced slightly to avoid double-render storms)
+            this.filterKota = sel.value;
 
-        this.container.addEventListener('click', this._containerClickHandler);
-        this._containerDelegationAttached = true;
-    }
+            // optional very small debounce to let current event settle
+            if (this._renderTimer) clearTimeout(this._renderTimer);
+            this._renderTimer = setTimeout(() => {
+                this.render();
+            }, 80);
+
+        } catch (err) {
+            console.error('KulinerPage _onGlobalChange error:', err);
+        }
     }
 
     setupThemeListener() {
-        this.removeThemeListener();
-        this.themeCleanup = theme.registerListener(() => {
-            // re-render and ensure event listeners still valid
-            this.render();
-            this.setupEventListeners();
-        });
+        // Implementasi theme listener jika diperlukan
     }
 
     removeThemeListener() {
@@ -236,12 +229,20 @@ export class KulinerPage {
     }
 
     destroy() {
-        // remove delegation if attached
-        if (this._containerDelegationAttached && this._containerClickHandler && this.container) {
-            this.container.removeEventListener('click', this._containerClickHandler);
-            this._containerDelegationAttached = false;
-            this._containerClickHandler = null;
+        this.removeThemeListener && this.removeThemeListener();
+
+        // remove delegated listener
+        if (this._delegationInstalled) {
+            try {
+                document.removeEventListener('change', this._onGlobalChange, true);
+            } catch (e) { /* ignore */ }
+            this._delegationInstalled = false;
         }
-        this.removeThemeListener();
+
+        // clear timer jika ada
+        if (this._renderTimer) {
+            clearTimeout(this._renderTimer);
+            this._renderTimer = null;
+        }
     }
 }

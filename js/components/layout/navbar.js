@@ -156,7 +156,6 @@ export class Navbar {
             { path: 'wisata', label: 'Wisata' },
             { path: 'kuliner', label: 'Kuliner' },
             { path: 'statistik', label: 'Statistik' },
-            { path: 'bookmark', label: 'Bookmark' },
             { path: 'tentang', label: 'Tentang' }
         ];
 
@@ -180,7 +179,6 @@ export class Navbar {
             { path: 'wisata', label: 'Wisata' },
             { path: 'kuliner', label: 'Kuliner' },
             { path: 'statistik', label: 'Statistik' },
-            { path: 'bookmark', label: 'Bookmark' },
             { path: 'tentang', label: 'Tentang' }
         ];
 

@@ -1,7 +1,6 @@
 import { dataService } from '../services/dataService.js';
 import { modal_locasi } from '../components/ui/modal_locasi.js';
-import { bookmarkService } from '../services/bookmarkService.js';
-import { theme } from '../components/theme/theme.js';
+import { Card } from '../components/card.js';
 
 export class WisataPage {
     constructor() {
@@ -10,36 +9,31 @@ export class WisataPage {
         this.filterKota = 'all';
         this.loading = true;
         this.themeCleanup = null;
+
+        // ✅ SAMA SEPERTI KULINERPAGE - untuk delegation & cleanup
+        this._onGlobalChange = this._onGlobalChange.bind(this);
+        this._delegationInstalled = false;
     }
 
     async init(container) {
         this.container = container;
-        
-        // CHECK AUTO FILTER DARI SEARCH - TAMBAHAN BARU
         this.checkAutoFilter();
-        
         await this.loadData();
         this.render();
         this.setupEventListeners();
         this.setupThemeListener();
     }
 
-    // METHOD BARU: Cek dan apply filter otomatis dari search
     checkAutoFilter() {
         const autoFilterData = sessionStorage.getItem('autoFilterData');
         if (autoFilterData) {
             try {
                 const data = JSON.parse(autoFilterData);
-                
-                // Jika ini page wisata dan data search adalah wisata
                 if (data.type === 'wisata' && data.kota) {
                     console.log('🔄 Auto-filter wisata by kota:', data.kota);
                     this.filterKota = data.kota;
                 }
-                
-                // Hapus data setelah dipakai
                 sessionStorage.removeItem('autoFilterData');
-                
             } catch (error) {
                 console.error('Error parsing autoFilterData:', error);
                 sessionStorage.removeItem('autoFilterData');
@@ -47,33 +41,80 @@ export class WisataPage {
         }
     }
 
-    // ... REST OF THE CODE REMAINS THE SAME ...
-
     async loadData() {
         this.loading = true;
-        this.render(); // Show loading
+        this.render();
 
-        const [wisataData, kotaData] = await Promise.all([
-            dataService.getWisata(),
-            dataService.getKota()
-        ]);
-        
-        this.wisataList = wisataData;
-        this.kotaList = kotaData;
+        try {
+            // ✅ SAMA SEPERTI KULINERPAGE - try multiple possible dataService method names
+            const getWisataFn =
+                (dataService && typeof dataService.getAllWisata === 'function' && dataService.getAllWisata.bind(dataService)) ||
+                (dataService && typeof dataService.getWisata === 'function' && dataService.getWisata.bind(dataService)) ||
+                (dataService && typeof dataService.getAll === 'function' && (() => dataService.getAll('wisata'))) ||
+                (dataService && typeof dataService.getCollection === 'function' && (() => dataService.getCollection('wisata'))) ||
+                null;
+
+            const getKotaFn =
+                (dataService && typeof dataService.getAllKota === 'function' && dataService.getAllKota.bind(dataService)) ||
+                (dataService && typeof dataService.getKota === 'function' && dataService.getKota.bind(dataService)) ||
+                (dataService && typeof dataService.getAll === 'function' && (() => dataService.getAll('kota'))) ||
+                (dataService && typeof dataService.getCollection === 'function' && (() => dataService.getCollection('kota'))) ||
+                null;
+
+            if (!getWisataFn && !getKotaFn) {
+                throw new Error('No suitable dataService methods found for wisata/kota. Check dataService exports.');
+            }
+
+            const wisataPromise = getWisataFn ? Promise.resolve(getWisataFn()) : Promise.resolve([]);
+            const kotaPromise = getKotaFn ? Promise.resolve(getKotaFn()) : Promise.resolve([]);
+
+            const [wisataData, kotaData] = await Promise.all([wisataPromise, kotaPromise]);
+
+            // ✅ SAMA SEPERTI KULINERPAGE - normalize results
+            this.wisataList = Array.isArray(wisataData) ? wisataData : (wisataData && Array.isArray(wisataData.data) ? wisataData.data : []);
+            this.kotaList = Array.isArray(kotaData) ? kotaData : (kotaData && Array.isArray(kotaData.data) ? kotaData.data : []);
+
+        } catch (err) {
+            console.error('Error loading wisata data (robust loader):', err);
+            try {
+                if (Notification && typeof Notification.show === 'function') {
+                    Notification.show('Gagal memuat data wisata. Periksa console.', 'error');
+                }
+            } catch (e) { /* ignore */ }
+            this.wisataList = [];
+            this.kotaList = [];
+        }
+
         this.loading = false;
-        
-        this.render(); // Re-render with data
+        this.render();
+    }
+
+    handleDetailClick(item) {
+        console.log('📍 Opening modal for:', item.nama);
+        try {
+            if (modal_locasi && typeof modal_locasi.show === 'function') {
+                modal_locasi.show(item);
+            } else if (modal_locasi && typeof modal_locasi.open === 'function') {
+                modal_locasi.open(item.nama || item.title || '', item);
+            } else {
+                alert(`${item.nama || item.title}\n${item.kota || ''}\n\nDeskripsi singkat tidak tersedia.`);
+            }
+        } catch (err) {
+            console.error('Error opening modal for item:', err, item);
+        }
     }
 
     getFilteredWisata() {
-        if (this.filterKota === 'all') {
-            return this.wisataList;
-        }
-        return this.wisataList.filter(w => w.kota === this.filterKota);
-    }
+        if (!Array.isArray(this.wisataList)) return [];
 
-    handleDetailClick(wisata) {
-        modal_locasi.open(wisata.nama, wisata);
+        if (!this.filterKota || this.filterKota === 'all') return this.wisataList;
+
+        const normalizedFilter = String(this.filterKota).trim().toLowerCase();
+
+        return this.wisataList.filter(w => {
+            const kota = (w.kota || '').toString().trim().toLowerCase();
+            return kota === normalizedFilter;
+        });
     }
 
     render() {
@@ -98,13 +139,19 @@ export class WisataPage {
                     >
                         <option value="all">Semua Kota</option>
                         ${this.kotaList.map(kota => `
-                            <option value="${kota.nama}">${kota.nama}</option>
+                            <option value="${kota.nama}" ${this.filterKota === kota.nama ? 'selected' : ''}>${kota.nama}</option>
                         `).join('')}
                     </select>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    ${filteredWisata.map(wisata => this.renderWisataCard(wisata)).join('')}
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="wisata-cards-container">
+                    ${filteredWisata.map(wisata => {
+                        const card = new Card(
+                            { ...wisata, type: 'wisata' },
+                            (item) => this.handleDetailClick(item)
+                        );
+                        return card.render();
+                    }).join('')}
                 </div>
 
                 ${filteredWisata.length === 0 ? `
@@ -114,91 +161,67 @@ export class WisataPage {
                 ` : ''}
             </div>
         `;
+
+        this.setupCardsEventListeners();
     }
 
-    renderWisataCard(wisata) {
-        const isBookmarked = bookmarkService.isBookmarked(wisata.id);
-        
-        return `
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
-                <div class="relative">
-                    <img class="h-48 w-full object-cover" src="${wisata.gambar}" alt="${wisata.nama}" />
-                    <button
-                        class="bookmark-btn absolute top-2 right-2 p-2 bg-white/70 dark:bg-gray-900/70 rounded-full backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        data-item='${JSON.stringify({
-                            id: wisata.id,
-                            type: 'wisata',
-                            nama: wisata.nama,
-                            kota: wisata.kota
-                        })}'
-                    >
-                        <svg class="w-5 h-5 ${isBookmarked ? 'text-primary-500 fill-current' : 'text-gray-500 dark:text-gray-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" ${isBookmarked ? 'fill="currentColor"' : ''}/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="p-4">
-                    <span class="text-xs text-primary-500 font-semibold uppercase">${wisata.kategori}</span>
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mt-1">${wisata.nama}</h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">${wisata.kota}</p>
-                    <div class="mt-4">
-                        <button 
-                            class="view-detail w-full text-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-                            data-id="${wisata.id}"
-                        >
-                            Lihat Detail
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
+    setupCardsEventListeners() {
+        const cardsContainer = document.getElementById('wisata-cards-container');
+        if (cardsContainer) {
+            const cardElements = cardsContainer.querySelectorAll('.card');
+            console.log(`🔄 Found ${cardElements.length} cards to setup`);
+            
+            cardElements.forEach((cardElement, index) => {
+                const wisata = this.getFilteredWisata()[index];
+                if (wisata) {
+                    console.log(`📍 Setting up card for: ${wisata.nama}`);
+                    Card.setupEventListeners(
+                        cardElement, 
+                        (item) => this.handleDetailClick(item)
+                    );
+                }
+            });
+        }
     }
 
     setupEventListeners() {
-        // Kota filter
-        const filterSelect = this.container.querySelector('#kota-filter');
-        if (filterSelect) {
-            filterSelect.value = this.filterKota;
-            filterSelect.addEventListener('change', (e) => {
-                this.filterKota = e.target.value;
-                this.render();
-                this.setupEventListeners(); // Re-attach event listeners
-            });
+        // ✅ SAMA PERSIS SEPERTI KULINERPAGE - pasang sekali per instance
+        if (this._delegationInstalled) {
+            return;
         }
+        this._delegationInstalled = true;
 
-        // Detail buttons
-        this.container.addEventListener('click', (e) => {
-            if (e.target.classList.contains('view-detail')) {
-                const id = e.target.dataset.id;
-                const wisata = this.wisataList.find(w => w.id === id);
-                if (wisata) {
-                    this.handleDetailClick(wisata);
-                }
-            }
-        });
+        // ✅ Delegasi di level document (sama seperti kuliner)
+        document.addEventListener('change', this._onGlobalChange, true);
+    }
 
-        // Bookmark buttons
-        this.container.addEventListener('click', (e) => {
-            const bookmarkBtn = e.target.closest('.bookmark-btn');
-            if (bookmarkBtn) {
-                const itemData = JSON.parse(bookmarkBtn.dataset.item);
-                bookmarkService.toggleBookmark(itemData);
-                this.render(); // Re-render to update bookmark states
-                this.setupEventListeners(); // Re-attach event listeners
+    // ✅ SAMA PERSIS SEPERTI KULINERPAGE - handler delegasi
+    _onGlobalChange(e) {
+        try {
+            const sel = e.target.closest && e.target.closest('#kota-filter');
+            if (!sel) return;
+
+            // ensure the select belongs to this page's container
+            if (!this.container || !this.container.contains(sel)) {
+                return;
             }
-        });
+
+            this.filterKota = sel.value;
+
+            // debounce render
+            if (this._renderTimer) clearTimeout(this._renderTimer);
+            this._renderTimer = setTimeout(() => {
+                this.render();
+            }, 80);
+
+        } catch (err) {
+            console.error('WisataPage _onGlobalChange error:', err);
+        }
     }
 
     setupThemeListener() {
-        // Remove any existing theme listener
-        this.removeThemeListener();
-
-        // Register theme listener to handle theme changes
-        this.themeCleanup = theme.registerListener(() => {
-            // Re-render to ensure correct theme is applied to dynamically generated content
-            this.render();
-            this.setupEventListeners();
-        });
+        // Implementasi theme listener jika diperlukan
+        // Sama seperti di KulinerPage
     }
 
     removeThemeListener() {
@@ -209,6 +232,20 @@ export class WisataPage {
     }
 
     destroy() {
-        this.removeThemeListener(); // Remove theme listener
+        this.removeThemeListener && this.removeThemeListener();
+
+        // ✅ SAMA PERSIS SEPERTI KULINERPAGE - remove delegated listener
+        if (this._delegationInstalled) {
+            try {
+                document.removeEventListener('change', this._onGlobalChange, true);
+            } catch (e) { /* ignore */ }
+            this._delegationInstalled = false;
+        }
+
+        // clear timer jika ada
+        if (this._renderTimer) {
+            clearTimeout(this._renderTimer);
+            this._renderTimer = null;
+        }
     }
 }

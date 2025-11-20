@@ -86,12 +86,14 @@ export class KotaPage {
         this.selectedKotaId = kotaId;
         window.location.hash = `kota/${kotaId}`;
         this.render();
+        this.setupEventListeners();
     }
 
     navigateToKotaList() {
         this.selectedKotaId = null;
         window.location.hash = 'kota';
         this.render();
+        this.setupEventListeners();
     }
 
     setSelectedKota(kotaId) {
@@ -195,7 +197,7 @@ export class KotaPage {
         // Setup event listeners untuk kuliner cards
         const kulinerContainer = document.getElementById('kota-kuliner-cards');
         if (kulinerContainer) {
-            const kulinerCards = kulinerContainer.querySelectorAll('.bg-white');
+            const kulinerCards = kulinerContainer.querySelectorAll('.card');
             kulinerCards.forEach((cardElement, index) => {
                 const kuliner = this.getKotaKuliner()[index];
                 if (kuliner) {
@@ -210,7 +212,7 @@ export class KotaPage {
         // Setup event listeners untuk wisata cards
         const wisataContainer = document.getElementById('kota-wisata-cards');
         if (wisataContainer) {
-            const wisataCards = wisataContainer.querySelectorAll('.bg-white');
+            const wisataCards = wisataContainer.querySelectorAll('.card');
             wisataCards.forEach((cardElement, index) => {
                 const wisata = this.getKotaWisata()[index];
                 if (wisata) {
@@ -224,10 +226,17 @@ export class KotaPage {
     }
 
     setupEventListeners() {
-        // Back button
+        // Back button - selalu setup fresh
         const backButton = this.container.querySelector('.back-button');
         if (backButton) {
-            backButton.addEventListener('click', () => {
+            // Hapus semua event listener lama dengan clone
+            const newBackButton = backButton.cloneNode(true);
+            backButton.parentNode.replaceChild(newBackButton, backButton);
+
+            // Tambah listener baru
+            newBackButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 this.navigateToKotaList();
             });
         }
@@ -239,11 +248,6 @@ export class KotaPage {
                 const kotaId = e.target.dataset.kotaId;
                 this.navigateToKotaDetail(kotaId);
             });
-        });
-
-        // Listen to bookmark updates to refresh card states
-        window.addEventListener('bookmarksUpdated', () => {
-            this.render();
         });
     }
 
@@ -269,7 +273,6 @@ export class KotaPage {
     destroy() {
         // Cleanup
         this.selectedItem = null;
-        this.removeThemeListener(); // Remove theme listener
-        window.removeEventListener('bookmarksUpdated', this.render);
+        this.removeThemeListener();
     }
 }

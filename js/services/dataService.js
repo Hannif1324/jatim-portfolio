@@ -45,13 +45,13 @@ export const CarouselImage = {
     alt: '',
 };
 
-export const Bookmark = {
-    id: '',
-    type: '', // 'kuliner' | 'wisata' | 'kota'
-    nama: '',
-    kota: '',
-    createdAt: 0,
-};
+// export const Bookmark = {
+//     id: '',
+//     type: '', // 'kuliner' | 'wisata' | 'kota'
+//     nama: '',
+//     kota: '',
+//     createdAt: 0,
+// };
 
 // Seed data dengan tambahan maps, URL, dan harga
 const seedKota = [
@@ -234,9 +234,10 @@ const seedKuliner = [
         kategori: 'Minuman', 
         gambar: 'https://picsum.photos/seed/espleret/400/300', 
         deskripsi: 'Minuman tradisional Blitar berisi bola-bola tepung beras kenyal dengan kuah santan dan gula merah yang menyegarkan.', 
-        harga: 'Rp 7,000',
-        mapsUrl: 'https://maps.google.com/?q=Es+Pleret,Blitar',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Blitar,East+Java&zoom=13&size=400x300&markers=color:blue%7CBlitar,East+Java',
+        harga: 'Rp 25.000',
+        mapsUrl: '859031,112.1538637,14z/data=!4m6!3m5!1s0x2e78ed28f88d23d7:0x25d9b32803cbdabb!8m2!3d-8.0950997!4d112.1686727!16s%2Fg%2F11fq_tf4r8?entry=ttu',
+        mapsImage: 'https://maps.app.goo.gl/Jb3zbibAMyNp9U6AA',
+        coords: { lat: -8.0950997, lng: 112.1686727 },
         rating: 4.2
     }
 ];
@@ -263,7 +264,7 @@ const seedWisata = [
         gambar: 'https://picsum.photos/seed/bromo/400/300', 
         deskripsi: 'Gunung berapi aktif yang terkenal dengan pemandangan matahari terbitnya yang spektakuler di atas lautan pasir dan kawah yang masih mengepul.', 
         hargaTiket: 'Rp 290,000 (termasuk kendaraan)',
-        mapsUrl: 'https://maps.google.com/?q=Gunung+Bromo,Probolinggo',
+        mapsUrl: 'https://maps.app.goo.gl/jPtnV5siYQ6qLckn7',
         mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Bromo,East+Java&zoom=12&size=400x300&markers=color:green%7CBromo,East+Java',
         rating: 4.8
     },
@@ -405,6 +406,20 @@ export const dataService = {
         }
     },
 
+    // TAMBAHKAN METHOD UNTUK CLEAR DATABASE
+    async clearDatabase() {
+        try {
+            await db.collection('kota').delete();
+            await db.collection('kuliner').delete();
+            await db.collection('wisata').delete();
+            await db.collection('carousel').delete();
+            // await db.collection('bookmarks').delete();
+            console.log('🗑️ Database cleared successfully');
+        } catch (error) {
+            console.error('Error clearing database:', error);
+        }
+    },
+
     // Get all items dari collection
     async getKota() {
         try {
@@ -442,40 +457,70 @@ export const dataService = {
         }
     },
 
-    // Bookmark functions
-    async getBookmarks() {
-        try {
-            return await db.collection('bookmarks').get();
-        } catch (error) {
-            console.error('Error getting bookmarks:', error);
-            return [];
-        }
-    },
+    // Bookmark functions dengan CACHE
+    // async getBookmarks() {
+    //     // ⬇️ PAKAI CACHE jika masih fresh
+    //     if (bookmarksCache && Date.now() - cacheTimestamp < CACHE_DURATION) {
+    //         console.log('📥 getBookmarks(): USING CACHE', bookmarksCache.length, 'items');
+    //         return bookmarksCache;
+    //     }
+        
+    //     try {
+    //         console.log('📥 getBookmarks(): FRESH FETCH');
+    //         const bookmarks = await db.collection('bookmarks').get();
+            
+    //         // ⬇️ UPDATE CACHE
+    //         bookmarksCache = bookmarks;
+    //         cacheTimestamp = Date.now();
+            
+    //         console.log('✅ getBookmarks(): Cache updated', bookmarks.length, 'items');
+    //         return bookmarks;
+    //     } catch (error) {
+    //         console.error('❌ Error getting bookmarks:', error);
+    //         return bookmarksCache || []; // Fallback ke cache jika error
+    //     }
+    // },
 
-    async getBookmark(id) {
-        try {
-            return await db.collection('bookmarks').doc({ id }).get();
-        } catch (error) {
-            console.error('Error getting bookmark:', error);
-            return null;
-        }
-    },
+    // async getBookmark(id) {
+    //     try {
+    //         return await db.collection('bookmarks').doc({ id }).get();
+    //     } catch (error) {
+    //         console.error('Error getting bookmark:', error);
+    //         return null;
+    //     }
+    // },
 
-    async addBookmark(bookmark) {
-        try {
-            return await db.collection('bookmarks').add(bookmark, bookmark.id);
-        } catch (error) {
-            console.error('Error adding bookmark:', error);
-        }
-    },
+    // async addBookmark(bookmark) {
+    //     try {
+    //         console.log('➕ addBookmark():', bookmark.id, bookmark.nama);
+    //         const result = await db.collection('bookmarks').add(bookmark, bookmark.id);
+            
+    //         // ⬇️ INVALIDATE CACHE - force fresh data next time
+    //         bookmarksCache = null;
+    //         console.log('🔄 Cache invalidated after add');
+            
+    //         return result;
+    //     } catch (error) {
+    //         console.error('Error adding bookmark:', error);
+    //         throw error;
+    //     }
+    // },
 
-    async removeBookmark(id) {
-        try {
-            return await db.collection('bookmarks').doc({ id }).delete();
-        } catch (error) {
-            console.error('Error removing bookmark:', error);
-        }
-    },
+    // async removeBookmark(id) {
+    //     try {
+    //         console.log('🗑️ removeBookmark():', id);
+    //         const result = await db.collection('bookmarks').doc({ id }).delete();
+            
+    //         // ⬇️ INVALIDATE CACHE - force fresh data next time  
+    //         bookmarksCache = null;
+    //         console.log('🔄 Cache invalidated after remove');
+            
+    //         return result;
+    //     } catch (error) {
+    //         console.error('Error removing bookmark:', error);
+    //         throw error;
+    //     }
+    // },
 
     // Search functionality
     async search(query) {

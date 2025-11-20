@@ -1,8 +1,6 @@
 import { dataService } from '../services/dataService.js';
 import { Carousel } from '../components/ui/carousel.js';
 import { modal_locasi } from '../components/ui/modal_locasi.js';
-import { bookmarkService } from '../services/bookmarkService.js';
-import { Card } from '../components/card.js';
 import { theme } from '../components/theme/theme.js';
 
 export class HomePage {
@@ -129,33 +127,19 @@ export class HomePage {
     }
 
     renderFeaturedCard(item) {
-        const isBookmarked = bookmarkService.isBookmarked(item.id);
         const type = item.kategori ? 'wisata' : 'kuliner';
-        
+
         return `
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-all duration-300">
                 <div class="relative">
                     <img class="h-48 w-full object-cover" src="${item.gambar}" alt="${item.nama}" />
-                    <button
-                        class="bookmark-btn absolute top-2 right-2 p-2 bg-white/70 dark:bg-gray-900/70 rounded-full backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-                        data-item='${JSON.stringify({
-                            id: item.id,
-                            type: type,
-                            nama: item.nama,
-                            kota: item.kota
-                        })}'
-                    >
-                        <svg class="w-5 h-5 ${isBookmarked ? 'text-primary-500 fill-current' : 'text-gray-500 dark:text-gray-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path d="m19 21-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" ${isBookmarked ? 'fill="currentColor"' : ''}/>
-                        </svg>
-                    </button>
                 </div>
                 <div class="p-4">
                     <span class="text-xs text-primary-500 font-semibold uppercase">${type === 'wisata' ? item.kategori : item.kategori}</span>
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white mt-1">${item.nama}</h3>
                     <p class="text-sm text-gray-600 dark:text-gray-400">${item.kota}</p>
                     <div class="mt-4">
-                        <button 
+                        <button
                             class="view-detail w-full text-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                             data-id="${item.id}"
                             data-type="${type}"
@@ -169,18 +153,6 @@ export class HomePage {
     }
 
     setupEventListeners() {
-        // Bookmark buttons
-        this.container.addEventListener('click', (e) => {
-            const bookmarkBtn = e.target.closest('.bookmark-btn');
-            if (bookmarkBtn) {
-                const itemData = JSON.parse(bookmarkBtn.dataset.item);
-                bookmarkService.toggleBookmark(itemData);
-                this.render(); // Re-render to update bookmark states
-                this.setupEventListeners(); // Re-attach event listeners
-                this.setupCarousel(); // Re-setup carousel
-            }
-        });
-
         // Detail buttons
         this.container.addEventListener('click', (e) => {
             if (e.target.classList.contains('view-detail')) {

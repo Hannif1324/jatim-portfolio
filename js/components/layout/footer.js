@@ -53,7 +53,6 @@ export class Footer {
                                 <a href="#kuliner" class="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors text-sm">Kuliner</a>
                                 <a href="#kota" class="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors text-sm">Kota</a>
                                 <a href="#statistik" class="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors text-sm">Statistik</a>
-                                <a href="#bookmark" class="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors text-sm">Bookmark</a>
                                 <a href="#tentang" class="text-gray-600 dark:text-gray-400 hover:text-primary-500 transition-colors text-sm">Tentang</a>
                             </div>
                         </div>

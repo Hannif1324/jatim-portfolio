@@ -1,5 +1,4 @@
 import { dataService } from './services/dataService.js';
-import { bookmarkService } from './services/bookmarkService.js';
 import { Layout } from './components/layout/layout.js';
 import { HomePage } from './pages/homePage.js';
 import { KotaPage } from './pages/kotaPage.js';
@@ -7,7 +6,6 @@ import { KulinerPage } from './pages/kulinerPage.js';
 import { WisataPage } from './pages/wisataPage.js';
 import { StatistikPage } from './pages/statistikPage.js';
 import { TentangPage } from './pages/tentangPage.js';
-import { BookmarkPage } from './pages/bookmarkPage.js';
 import { theme } from './components/theme/theme.js';
 
 export class App {
@@ -115,10 +113,6 @@ export class App {
                     this.currentPage = new TentangPage();
                     await this.currentPage.init(container);
                     break;
-                case 'bookmark':
-                    this.currentPage = new BookmarkPage();
-                    await this.currentPage.init(container);
-                    break;
                 default:
                     container.innerHTML = `
                         <div class="text-center py-12">
@@ -148,8 +142,6 @@ export class App {
             // Seed data
             await dataService.seedData();
 
-            // Load bookmarks
-            await bookmarkService.loadBookmarks();
 
             // Setup hash change listener - UPDATED
             window.addEventListener('hashchange', () => {
