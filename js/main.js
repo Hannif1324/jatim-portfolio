@@ -7,6 +7,7 @@ import { KulinerPage } from './pages/kulinerPage.js';
 import { WisataPage } from './pages/wisataPage.js';
 import { StatistikPage } from './pages/statistikPage.js';
 import { TentangPage } from './pages/tentangPage.js';
+import { BookmarkPage } from './pages/bookmarkPage.js';
 import { theme } from './components/theme/theme.js';
 
 export class App {
@@ -112,6 +113,10 @@ export class App {
                     break;
                 case 'tentang':
                     this.currentPage = new TentangPage();
+                    await this.currentPage.init(container);
+                    break;
+                case 'bookmark':
+                    this.currentPage = new BookmarkPage();
                     await this.currentPage.init(container);
                     break;
                 default:

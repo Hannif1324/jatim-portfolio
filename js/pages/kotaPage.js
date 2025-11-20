@@ -1,5 +1,5 @@
 import { dataService } from '../services/dataService.js';
-import { modal } from '../components/ui/modal.js';
+import { modal_locasi } from '../components/ui/modal_locasi.js';
 import { Card } from '../components/card.js';
 import { theme } from '../components/theme/theme.js';
 
@@ -79,16 +79,7 @@ export class KotaPage {
     showItemModal() {
         if (!this.selectedItem) return;
 
-        const content = `
-            <img src="${this.selectedItem.gambar}" alt="${this.selectedItem.nama}" class="w-full h-64 object-cover rounded-md mb-4"/>
-            <p class="text-gray-700 dark:text-gray-300">${this.selectedItem.deskripsi}</p>
-            ${this.selectedItem.kota ? `<p class="mt-2"><strong>Kota:</strong> ${this.selectedItem.kota}</p>` : ''}
-            ${this.selectedItem.kategori ? `<p><strong>Kategori:</strong> ${this.selectedItem.kategori}</p>` : ''}
-        `;
-
-        modal.open(this.selectedItem.nama, content, () => {
-            this.closeItemModal();
-        });
+        modal_locasi.open(this.selectedItem.nama, this.selectedItem);
     }
 
     navigateToKotaDetail(kotaId) {

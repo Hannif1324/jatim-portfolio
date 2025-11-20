@@ -1,6 +1,6 @@
 import { dataService } from '../services/dataService.js';
 import { Carousel } from '../components/ui/carousel.js';
-import { modal } from '../components/ui/modal.js';
+import { modal_locasi } from '../components/ui/modal_locasi.js';
 import { bookmarkService } from '../services/bookmarkService.js';
 import { Card } from '../components/card.js';
 import { theme } from '../components/theme/theme.js';
@@ -213,36 +213,18 @@ export class HomePage {
 
     async showItemDetail(id, type) {
         try {
-            let item, title, content;
+            let item;
 
             if (type === 'wisata') {
                 const wisata = await dataService.getWisata();
                 item = wisata.find(w => w.id === id);
-                if (item) {
-                    title = item.nama;
-                    content = `
-                        <img src="${item.gambar}" alt="${item.nama}" class="w-full h-64 object-cover rounded-md mb-4">
-                        <p><strong>Kota:</strong> ${item.kota}</p>
-                        <p><strong>Kategori:</strong> ${item.kategori}</p>
-                        <p class="mt-2">${item.deskripsi}</p>
-                    `;
-                }
             } else if (type === 'kuliner') {
                 const kuliner = await dataService.getKuliner();
                 item = kuliner.find(k => k.id === id);
-                if (item) {
-                    title = item.nama;
-                    content = `
-                        <img src="${item.gambar}" alt="${item.nama}" class="w-full h-64 object-cover rounded-md mb-4">
-                        <p><strong>Kota:</strong> ${item.kota}</p>
-                        <p><strong>Kategori:</strong> ${item.kategori}</p>
-                        <p class="mt-2">${item.deskripsi}</p>
-                    `;
-                }
             }
 
             if (item) {
-                modal.open(title, content);
+                modal_locasi.open(item.nama, item);
             }
         } catch (error) {
             console.error('Error showing item detail:', error);

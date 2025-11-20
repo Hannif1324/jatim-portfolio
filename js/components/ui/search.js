@@ -133,6 +133,17 @@ export class Search {
             this.resultsContainer.classList.add('hidden');
         }
 
+        // Simpan data untuk filter otomatis
+        const filterData = {
+            type: result.type,
+            kota: result.kota,
+            nama: result.nama,
+            id: result.id
+        };
+        
+        // Simpan di sessionStorage agar bisa diakses oleh page tujuan
+        sessionStorage.setItem('autoFilterData', JSON.stringify(filterData));
+        
         // Navigate based on result type
         if (result.type === 'kota') {
             window.location.hash = `kota/${result.id}`;

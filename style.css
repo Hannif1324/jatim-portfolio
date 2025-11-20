@@ -94,3 +94,34 @@ header {
 #search-results {
     z-index: 1001 !important;
 }
+
+/* Logo Responsive Styles */
+@media (max-width: 640px) {
+    .flex.items-center.space-x-3 img {
+        height: 32px !important;
+    }
+    
+    .border-l.border-gray-300.pl-3 {
+        padding-left: 8px !important;
+    }
+}
+
+/* Footer Responsive */
+@media (max-width: 768px) {
+    .grid.grid-cols-1.md\:grid-cols-3 {
+        gap: 2rem;
+    }
+    
+    .flex.flex-col.md\:flex-row {
+        text-align: center;
+    }
+}
+
+/* Smooth transitions for logos */
+img {
+    transition: transform 0.2s ease-in-out;
+}
+
+img:hover {
+    transform: scale(1.05);
+}

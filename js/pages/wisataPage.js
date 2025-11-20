@@ -1,5 +1,5 @@
 import { dataService } from '../services/dataService.js';
-import { modal } from '../components/ui/modal.js';
+import { modal_locasi } from '../components/ui/modal_locasi.js';
 import { bookmarkService } from '../services/bookmarkService.js';
 import { theme } from '../components/theme/theme.js';
 
@@ -14,11 +14,40 @@ export class WisataPage {
 
     async init(container) {
         this.container = container;
+        
+        // CHECK AUTO FILTER DARI SEARCH - TAMBAHAN BARU
+        this.checkAutoFilter();
+        
         await this.loadData();
         this.render();
         this.setupEventListeners();
         this.setupThemeListener();
     }
+
+    // METHOD BARU: Cek dan apply filter otomatis dari search
+    checkAutoFilter() {
+        const autoFilterData = sessionStorage.getItem('autoFilterData');
+        if (autoFilterData) {
+            try {
+                const data = JSON.parse(autoFilterData);
+                
+                // Jika ini page wisata dan data search adalah wisata
+                if (data.type === 'wisata' && data.kota) {
+                    console.log('🔄 Auto-filter wisata by kota:', data.kota);
+                    this.filterKota = data.kota;
+                }
+                
+                // Hapus data setelah dipakai
+                sessionStorage.removeItem('autoFilterData');
+                
+            } catch (error) {
+                console.error('Error parsing autoFilterData:', error);
+                sessionStorage.removeItem('autoFilterData');
+            }
+        }
+    }
+
+    // ... REST OF THE CODE REMAINS THE SAME ...
 
     async loadData() {
         this.loading = true;
@@ -44,15 +73,7 @@ export class WisataPage {
     }
 
     handleDetailClick(wisata) {
-        const content = `
-            <img src="${wisata.gambar}" alt="${wisata.nama}" class="w-full h-64 object-cover rounded-md mb-4"/>
-            <p class="text-gray-700 dark:text-gray-300">${wisata.deskripsi}</p>
-            <div class="mt-4 text-sm">
-                <p><strong>Lokasi:</strong> ${wisata.kota}</p>
-                <p><strong>Kategori:</strong> ${wisata.kategori}</p>
-            </div>
-        `;
-        modal.open(wisata.nama, content);
+        modal_locasi.open(wisata.nama, wisata);
     }
 
     render() {

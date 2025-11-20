@@ -1,4 +1,3 @@
-// js/components/layout/navbar.js
 import { Search } from '../ui/search.js';
 import { icons } from '../ui/icons.js';
 import { theme } from '../theme/theme.js';
@@ -9,7 +8,7 @@ export class Navbar {
         this.searchDesktop = null;
         this.searchMobile = null;
         this.isMobileMenuOpen = false;
-        this.currentRoute = this.getCurrentRoute(); // Get initial route
+        this.currentRoute = this.getCurrentRoute();
     }
 
     init(container) {
@@ -18,24 +17,19 @@ export class Navbar {
         this.setupSearch();
         this.setupEventListeners();
         this.setupThemeListeners();
-        this.setupRouteListener(); // NEW: Listen for route changes
+        this.setupRouteListener();
     }
 
-    // NEW: Improved route detection method
     getCurrentRoute() {
-        const hash = window.location.hash.slice(1); // Remove #
+        const hash = window.location.hash.slice(1);
         if (!hash) return 'home';
-        
-        // Handle routes like #kota, #wisata, etc.
-        const route = hash.split('/')[0]; // Get base route (ignore IDs)
+        const route = hash.split('/')[0];
         return route || 'home';
     }
 
-    // NEW: Method to update active navigation
     updateActiveNavigation() {
         this.currentRoute = this.getCurrentRoute();
         
-        // Update desktop navigation
         const desktopLinks = this.container.querySelectorAll('.nav-link-desktop');
         desktopLinks.forEach(link => {
             const route = link.getAttribute('data-route');
@@ -48,7 +42,6 @@ export class Navbar {
             }
         });
 
-        // Update mobile navigation
         const mobileLinks = this.container.querySelectorAll('.nav-link-mobile');
         mobileLinks.forEach(link => {
             const route = link.getAttribute('data-route');
@@ -62,16 +55,13 @@ export class Navbar {
         });
     }
 
-    // NEW: Listen for route changes
     setupRouteListener() {
         window.addEventListener('hashchange', () => {
             this.updateActiveNavigation();
         });
 
-        // Also update when navbar links are clicked
         this.container.addEventListener('click', (e) => {
             if (e.target.closest('a[href^="#"]')) {
-                // Small delay to ensure hash change has occurred
                 setTimeout(() => {
                     this.updateActiveNavigation();
                 }, 10);
@@ -87,12 +77,28 @@ export class Navbar {
                     style="position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between h-16">
-                        <!-- Logo -->
-                        <div class="flex items-center">
-                            <a href="#home" class="flex-shrink-0">
-                                <h1 class="text-xl font-bold text-primary-600 dark:text-primary-400">JawaTimur</h1>
+                        <!-- Logo Section dengan kedua logo -->
+                        <div class="flex items-center space-x-3">
+                            <a href="#home" class="flex items-center space-x-3 no-underline">
+                                <!-- Logo Jawa Timur -->
+                                <div class="flex items-center">
+                                    <img src="https://res.cloudinary.com/dz0hpyxbi/image/upload/v1763563036/post_auto/l01mlsj3kmbfvjgctj3f.png" 
+                                         alt="Logo Jawa Timur" 
+                                         class="h-10 w-auto object-contain lg:h-12"
+                                         loading="lazy">
+                                </div>
+                                
+                                <!-- Logo SMK PGRI 1 Kota Kediri -->
+                                <div class="flex items-center border-l border-gray-300 dark:border-gray-600 pl-3">
+                                    <img src="https://res.cloudinary.com/dz0hpyxbi/image/upload/v1763562916/post_auto/oliavoro0kmjqlwou5oe.png" 
+                                         alt="Logo SMK PGRI 1 Kota Kediri" 
+                                         class="h-8 w-auto object-contain lg:h-10"
+                                         loading="lazy">
+                                </div>
                             </a>
-                            <div class="hidden lg:block ml-10">
+                            
+                            <!-- Desktop Navigation -->
+                            <div class="hidden lg:block ml-4">
                                 <div class="flex items-baseline space-x-4">
                                     ${this.getNavigationLinks()}
                                 </div>
@@ -150,14 +156,15 @@ export class Navbar {
             { path: 'wisata', label: 'Wisata' },
             { path: 'kuliner', label: 'Kuliner' },
             { path: 'statistik', label: 'Statistik' },
+            { path: 'bookmark', label: 'Bookmark' },
             { path: 'tentang', label: 'Tentang' }
         ];
 
         return routes.map(route => `
-            <a href="#${route.path}" 
+            <a href="#${route.path}"
                class="nav-link-desktop px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
-                   this.currentRoute === route.path 
-                   ? 'bg-primary-500 text-white' 
+                   this.currentRoute === route.path
+                   ? 'bg-primary-500 text-white'
                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                }"
                data-route="${route.path}">
@@ -173,14 +180,15 @@ export class Navbar {
             { path: 'wisata', label: 'Wisata' },
             { path: 'kuliner', label: 'Kuliner' },
             { path: 'statistik', label: 'Statistik' },
+            { path: 'bookmark', label: 'Bookmark' },
             { path: 'tentang', label: 'Tentang' }
         ];
 
         return routes.map(route => `
-            <a href="#${route.path}" 
+            <a href="#${route.path}"
                class="nav-link-mobile px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                   this.currentRoute === route.path 
-                   ? 'bg-primary-500 text-white' 
+                   this.currentRoute === route.path
+                   ? 'bg-primary-500 text-white'
                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                }"
                data-route="${route.path}"
@@ -206,7 +214,6 @@ export class Navbar {
     }
 
     setupEventListeners() {
-        // Mobile menu
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         
@@ -218,7 +225,6 @@ export class Navbar {
             });
         }
 
-        // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
             if (this.isMobileMenuOpen && mobileMenu && !mobileMenu.contains(e.target) && 
                 mobileMenuButton && !mobileMenuButton.contains(e.target)) {
@@ -227,7 +233,6 @@ export class Navbar {
             }
         });
 
-        // Close mobile menu on route change
         window.addEventListener('hashchange', () => {
             if (this.isMobileMenuOpen && mobileMenu) {
                 mobileMenu.classList.add('hidden');
