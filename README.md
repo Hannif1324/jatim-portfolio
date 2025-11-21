@@ -27,7 +27,7 @@ Aplikasi ini memadukan desain modern, fitur interaktif seperti modal lokasi, pen
 ## 🏗️ Arsitektur Project
 
 ```
-jatim-portfolio-main/
+jatim-portfolio/
 ├── index.html
 ├── style.css
 ├── README.md
