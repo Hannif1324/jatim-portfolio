@@ -82,7 +82,7 @@ export class Navbar {
                             <a href="#home" class="flex items-center space-x-3 no-underline">
                                 <!-- Logo Jawa Timur -->
                                 <div class="flex items-center">
-                                    <img src="https://res.cloudinary.com/dz0hpyxbi/image/upload/v1763563036/post_auto/l01mlsj3kmbfvjgctj3f.png" 
+                                    <img src="/public/images/1763561698154-min.webp" 
                                          alt="Logo Jawa Timur" 
                                          class="h-10 w-auto object-contain lg:h-12"
                                          loading="lazy">

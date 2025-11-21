@@ -58,201 +58,200 @@ const seedKota = [
     { 
         id: 'surabaya', 
         nama: 'Surabaya', 
-        populasi: 3000000, 
+        populasi: 3137620, 
         coords: { lat: -7.250445, lng: 112.768845 }, 
         deskripsi: 'Surabaya adalah ibu kota Provinsi Jawa Timur dan merupakan kota metropolitan terbesar kedua di Indonesia. Dikenal sebagai Kota Pahlawan karena perannya dalam pertempuran kemerdekaan Indonesia.', 
-        gambar: 'https://picsum.photos/seed/surabaya/800/600',
-        mapsUrl: 'https://maps.google.com/?q=Surabaya,Jawa+Timur',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Surabaya,East+Java&zoom=12&size=400x300&markers=color:red%7CSurabaya,East+Java'
+        gambar: 'https://res.cloudinary.com/dz0hpyxbi/image/upload/v1763634381/post_auto/yy59zuo4m2y90hz9nv6b.jpg', //fotokota
+        mapsUrl: 'https://maps.app.goo.gl/7z5EscoVBWPH8t8z7',
+        mapsImage: 'https://files.catbox.moe/g7qcv2.png' //ss
     },
     
     { 
         id: 'probolinggo', 
         nama: 'Probolinggo', 
-        populasi: 200000, 
+        populasi: 160490, 
         coords: { lat: -7.766667, lng: 113.208333 }, 
         deskripsi: 'Probolinggo adalah kota pelabuhan yang sibuk dan menjadi gerbang utama menuju Taman Nasional Bromo Tengger Semeru yang terkenal di dunia.', 
-        gambar: 'https://picsum.photos/seed/probolinggo/800/600',
-        mapsUrl: 'https://maps.google.com/?q=Probolinggo,Jawa+Timur',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Probolinggo,East+Java&zoom=12&size=400x300&markers=color:red%7CProbolinggo,East+Java'
+        gambar: 'https://files.catbox.moe/bo8ooc.jpg', //kota
+        mapsUrl: 'https://maps.app.goo.gl/oGs2BtyfBqHsaXKJ7',
+        mapsImage: 'https://files.catbox.moe/vmm2ao.png' //ss
     },
     
     { 
         id: 'malang', 
         nama: 'Malang', 
-        populasi: 800000, 
+        populasi: 891859, 
         coords: { lat: -7.9797, lng: 112.6304 }, 
         deskripsi: 'Terletak di dataran tinggi, Malang dikenal dengan udaranya yang sejuk, arsitektur kolonial, dan sebagai pusat pendidikan. Kota ini dikelilingi oleh pegunungan dan perkebunan apel.', 
-        gambar: 'https://picsum.photos/seed/malang/800/600',
-        mapsUrl: 'https://maps.google.com/?q=Malang,Jawa+Timur',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Malang,East+Java&zoom=12&size=400x300&markers=color:red%7CMalang,East+Java'
+        gambar: 'https://files.catbox.moe/gdc0mn.jpg',//kota
+        mapsUrl: 'https://maps.app.goo.gl/AVc4MRNxVceo5rpW9',
+        mapsImage: 'https://files.catbox.moe/qvdbn8.jpg'//ss
     },
     
     { 
         id: 'kediri', 
         nama: 'Kediri', 
-        populasi: 290000, 
+        populasi: 300460, 
         coords: { lat: -7.848016, lng: 112.017829 }, 
         deskripsi: 'Kediri adalah salah satu kota tertua di Indonesia, dikenal sebagai pusat industri rokok dan memiliki sejarah panjang sejak era Kerajaan Kediri.', 
-        gambar: 'https://picsum.photos/seed/kediri/800/600',
-        mapsUrl: 'https://maps.google.com/?q=Kediri,Jawa+Timur',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Kediri,East+Java&zoom=12&size=400x300&markers=color:red%7CKediri,East+Java'
+        gambar: 'https://files.catbox.moe/s6hznd.jpg',//kota
+        mapsUrl: 'https://maps.app.goo.gl/vTm7sMB4MFiDieKF6',
+        mapsImage: 'https://files.catbox.moe/ysgjmu.jpg'//ss
     },
     
     { 
         id: 'madiun', 
         nama: 'Madiun', 
-        populasi: 210000, 
+        populasi: 760950, 
         coords: { lat: -7.629714, lng: 111.523274 }, 
         deskripsi: 'Madiun dikenal sebagai Kota Gadis dan memiliki sejarah sebagai pusat kereta api serta industri persenjataan di Jawa Timur.', 
-        gambar: 'https://picsum.photos/seed/madiun/800/600',
-        mapsUrl: 'https://maps.google.com/?q=Madiun,Jawa+Timur',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Madiun,East+Java&zoom=12&size=400x300&markers=color:red%7CMadiun,East+Java'
+        gambar: 'https://files.catbox.moe/sc0neo.jpg',//kota
+        mapsUrl: 'https://maps.app.goo.gl/kALW4RKWFAdP7C1J7',
+        mapsImage: 'https://files.catbox.moe/cwb9g0.jpg'//ss
     },
     
     { 
         id: 'blitar', 
         nama: 'Blitar', 
-        populasi: 150000, 
+        populasi: 163342, 
         coords: { lat: -8.098172, lng: 112.168243 }, 
         deskripsi: 'Blitar terkenal sebagai tempat dimakamkannya Presiden pertama Republik Indonesia, Ir. Soekarno, dan memiliki budaya serta sejarah yang kuat.', 
-        gambar: 'https://picsum.photos/seed/blitar/800/600',
+        gambar: 'https://files.catbox.moe/yzglkn.webp',//kota
         mapsUrl: 'https://maps.google.com/?q=Blitar,Jawa+Timur',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Blitar,East+Java&zoom=12&size=400x300&markers=color:red%7CBlitar,East+Java'
+        mapsImage: 'https://files.catbox.moe/j9b2ea.png'//ss
     }
 ];
 
 const seedKuliner = [
     { 
-        id: 'rawon-surabaya', 
+        id: 'rawon surabaya', 
         nama: 'Rawon Setan', 
         kota: 'Surabaya', 
         kategori: 'Makanan Berat', 
-        gambar: 'https://picsum.photos/seed/rawon/400/300', 
+        gambar: 'https://files.catbox.moe/ywz78h.jpg', //rawon
         deskripsi: 'Sup daging sapi berkuah hitam pekat yang kaya rempah, menggunakan kluwek sebagai bumbu utama yang memberikan wrna dan rasa khas.', 
-        harga: 'Rp 25,000',
-        mapsUrl: 'https://maps.google.com/?q=Rawon+Setan,Surabaya',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Surabaya,East+Java&zoom=13&size=400x300&markers=color:blue%7CSurabaya,East+Java',
-        rating: 4.7
-    },
-
-    { 
-        id: 'soto-lamongan', 
-        nama: 'Soto Lamongan', 
-        kota: 'Surabaya', 
-        kategori: 'Makanan Berat', 
-        gambar: 'https://picsum.photos/seed/soto/400/300', 
-        deskripsi: 'Soto ayam bening dengan bubuk koya yang gurih, disajikan dengan irisan ayam, telur, dan seledri.', 
-        harga: 'Rp 15,000',
-        mapsUrl: 'https://maps.google.com/?q=Soto+Lamongan,Surabaya',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Surabaya,East+Java&zoom=13&size=400x300&markers=color:blue%7CSurabaya,East+Java',
+        harga: 'Rp 40.000',
+        mapsUrl: 'https://maps.app.goo.gl/v2zCRvi7jqrPm1TA9',
+        mapsImage: 'https://files.catbox.moe/bzei7w.jpg', //ss
         rating: 4.5
     },
 
     { 
-        id: 'tahu-lontong-probolinggo', 
+        id: 'soto lamongan', 
+        nama: 'Soto Lamongan', 
+        kota: 'Surabaya', 
+        kategori: 'Makanan Berat', 
+        gambar: 'https://files.catbox.moe/vd29h3.jpeg', //soto
+        deskripsi: 'Soto ayam bening dengan bubuk koya yang gurih, disajikan dengan irisan ayam, telur, dan seledri.', 
+        harga: 'Rp 15,000',
+        mapsUrl: 'https://maps.app.goo.gl/S2tiRGpb7wxLdmX1A',
+        mapsImage: 'https://files.catbox.moe/mht2tb.jpg', //ss 
+        rating: 4.4
+    },
+
+    { 
+        id: 'tahu lontong probolinggo', 
         nama: 'Tahu Lontong', 
         kota: 'Probolinggo', 
         kategori: 'Makanan Ringan', 
-        gambar: 'https://picsum.photos/seed/tahulontong/400/300', 
+        gambar: 'https://files.catbox.moe/sck8eh.jpg', 
         deskripsi: 'Hidangan sederhana yang terdiri dari tahu goreng, lontong, tauge, dan disiram bumbu kacang petis yang lezat.', 
-        harga: 'Rp 10,000',
-        mapsUrl: 'https://maps.google.com/?q=Tahu+Lontong,Probolinggo',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Probolinggo,East+Java&zoom=13&size=400x300&markers=color:blue%7CProbolinggo,East+Java',
+        harga: 'Rp 10.000',
+        mapsUrl: 'https://maps.app.goo.gl/Rv6PNMJC3XnShPpm7',
+        mapsImage: 'https://files.catbox.moe/fdnpdv.jpg',
+        rating: 4.0
+    },
+
+    { 
+        id: 'bakso malang', 
+        nama: 'Bakso Bakar Malang', 
+        kota: 'Malang', 
+        kategori: 'Makanan Berat', 
+        gambar: 'https://files.catbox.moe/5i4wv0.jpg', //bakso
+        deskripsi: 'Bakso khas Malang yang tidak hanya direbus, tetapi juga dibakar dan dilumuri bumbu kecap pedas manis, disajikan dengan pangsit dan tahu.', 
+        harga: 'Rp 35.000 - 52.000',
+        mapsUrl: 'https://maps.app.goo.gl/itt6MgPfwcTMWi8o6"',
+        mapsImage: 'https://files.catbox.moe/5elv7z.jpg',//ss
         rating: 4.3
     },
 
     { 
-        id: 'bakso-malang', 
-        nama: 'Bakso Bakar Malang', 
+        id: 'cwie mie malang', 
+        nama: 'Cwie Mie Malang', 
         kota: 'Malang', 
         kategori: 'Makanan Berat', 
-        gambar: 'https://picsum.photos/seed/bakso/400/300', 
-        deskripsi: 'Bakso khas Malang yang tidak hanya direbus, tetapi juga dibakar dan dilumuri bumbu kecap pedas manis, disajikan dengan pangsit dan tahu.', 
-        harga: 'Rp 18,000',
-        mapsUrl: 'https://maps.google.com/?q=Bakso+Bakar,Malang',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Malang,East+Java&zoom=13&size=400x300&markers=color:blue%7CMalang,East+Java',
+        gambar: 'https://files.catbox.moe/ds72la.jpg', //cwie mie
+        deskripsi: 'Mi khas Malang dengan topping ayam giling yang lembut dan taburan bawang goreng, disajikan dengan kuah terpisah.', 
+        harga: 'Rp 15.000',
+        mapsUrl: 'https://maps.google.com/?q=Cwie+Mie,Malang',
+        mapsImage: 'https://files.catbox.moe/gzwoo4.jpg', //ss
+        rating: 4.4
+    },
+
+    { 
+        id: 'pecel madiun', 
+        nama: 'Pecel Madiun', 
+        kota: 'Madiun', 
+        kategori: 'Makanan Berat', 
+        gambar: 'https://files.catbox.moe/xkh4il.jpg', //pecel madiun
+        deskripsi: 'Hidangan sayuran dengan sambal kacang khas Madiun yang pedas, wangi daun jeruk, dan biasanya disajikan dengan rempeyek.', 
+        harga: 'Rp 13,000',
+        mapsUrl: 'https://maps.app.goo.gl/ANFC6sTVuCcy5aKt6',
+        mapsImage: 'https://files.catbox.moe/4zuws1.jpg',//ss **
+        rating: 4.5
+    },
+
+    { 
+        id: 'tahu tek surabaya', 
+        nama: 'Tahu Tek', 
+        kota: 'Surabaya', 
+        kategori: 'Makanan Ringan', 
+        gambar: 'https://files.catbox.moe/vxj1dl.jpg', //tahu tek
+        deskripsi: 'Tahu goreng dan lontong yang dipotong dengan gunting, disiram bumbu petis kacang yang gurih dan nikmat.', 
+        harga: 'Rp 15,000',
+        mapsUrl: 'https://maps.app.goo.gl/ZY7NcvCnQYhnHJVM6',
+        mapsImage: 'https://files.catbox.moe/doc2t3.jpg',//ss
         rating: 4.6
     },
 
     { 
-        id: 'cwie-mie-malang', 
-        nama: 'Cwie Mie Malang', 
-        kota: 'Malang', 
-        kategori: 'Makanan Berat', 
-        gambar: 'https://picsum.photos/seed/cwiemie/400/300', 
-        deskripsi: 'Mi khas Malang dengan topping ayam giling yang lembut dan taburan bawang goreng, disajikan dengan kuah terpisah.', 
-        harga: 'Rp 17,000',
-        mapsUrl: 'https://maps.google.com/?q=Cwie+Mie,Malang',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Malang,East+Java&zoom=13&size=400x300&markers=color:blue%7CMalang,East+Java',
-        rating: 4.4
-    },
-
-    { 
-        id: 'pecel-madiun', 
-        nama: 'Pecel Madiun', 
-        kota: 'Madiun', 
-        kategori: 'Makanan Berat', 
-        gambar: 'https://picsum.photos/seed/pecelmadiun/400/300', 
-        deskripsi: 'Hidangan sayuran dengan sambal kacang khas Madiun yang pedas, wangi daun jeruk, dan biasanya disajikan dengan rempeyek.', 
-        harga: 'Rp 12,000',
-        mapsUrl: 'https://maps.google.com/?q=Pecel+Madiun',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Madiun,East+Java&zoom=13&size=400x300&markers=color:blue%7CMadiun,East+Java',
+        id: 'tahu kuning kediri', 
+        nama: 'Tahu Kuning Kediri', 
+        kota: 'Kediri', 
+        kategori: 'Makanan Ringan', 
+        gambar: 'https://files.catbox.moe/bgnlra.jpeg', //tahu
+        deskripsi: 'Tahu khas Kediri yang berwarna kuning alami dari kunyit, memiliki tekstur lembut dan rasa gurih, menjadi ikon kuliner dari Kota Tahu.', 
+        harga: 'Rp 2000 - 5000 perbiji',
+        mapsUrl: 'https://maps.app.goo.gl/rsVZcx7HGJT5kddK6',
+        mapsImage: 'https://files.catbox.moe/0r3t46.jpg',//ss
         rating: 4.5
     },
 
     { 
-        id: 'tahu-tek-surabaya', 
-        nama: 'Tahu Tek', 
-        kota: 'Surabaya', 
-        kategori: 'Makanan Ringan', 
-        gambar: 'https://picsum.photos/seed/tahutek/400/300', 
-        deskripsi: 'Tahu goreng dan lontong yang dipotong dengan gunting, disiram bumbu petis kacang yang gurih dan nikmat.', 
-        harga: 'Rp 15,000',
-        mapsUrl: 'https://maps.google.com/?q=Tahu+Tek,Surabaya',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Surabaya,East+Java&zoom=13&size=400x300&markers=color:blue%7CSurabaya,East+Java',
-        rating: 4.4
-    },
-
-    { 
-        id: 'tahu-kuning-kediri', 
-        nama: 'Tahu Kuning Kediri', 
-        kota: 'Kediri', 
-        kategori: 'Makanan Ringan', 
-        gambar: 'https://picsum.photos/seed/tahukuning/400/300', 
-        deskripsi: 'Tahu khas Kediri yang berwarna kuning alami dari kunyit, memiliki tekstur lembut dan rasa gurih, menjadi ikon kuliner dari Kota Tahu.', 
-        harga: 'Rp 8,000',
-        mapsUrl: 'https://maps.google.com/?q=Tahu+Kuning,Kediri',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Kediri,East+Java&zoom=13&size=400x300&markers=color:blue%7CKediri,East+Java',
-        rating: 4.3
-    },
-
-    { 
-        id: 'es-pleret-blitar', 
+        id: 'es pleret blitar', 
         nama: 'Es Pleret', 
         kota: 'Blitar', 
         kategori: 'Minuman', 
-        gambar: 'https://picsum.photos/seed/espleret/400/300', 
+        gambar: 'https://files.catbox.moe/8qt0xp.jpg', 
         deskripsi: 'Minuman tradisional Blitar berisi bola-bola tepung beras kenyal dengan kuah santan dan gula merah yang menyegarkan.', 
-        harga: 'Rp 25.000',
-        mapsUrl: '859031,112.1538637,14z/data=!4m6!3m5!1s0x2e78ed28f88d23d7:0x25d9b32803cbdabb!8m2!3d-8.0950997!4d112.1686727!16s%2Fg%2F11fq_tf4r8?entry=ttu',
-        mapsImage: 'https://maps.app.goo.gl/Jb3zbibAMyNp9U6AA',
-        coords: { lat: -8.0950997, lng: 112.1686727 },
-        rating: 4.2
+        harga: 'Rp 5.000 - 15.000',
+        mapsUrl: 'https://maps.app.goo.gl/9TGmpUb9DgpdS5Jw8',
+        mapsImage: 'https://files.catbox.moe/89n4le.jpg',
+        rating: 5.0
     }
 ];
 
 const seedWisata = [
     {
-        id: 'coban-rondo', 
+        id: 'coban rondo', 
         nama: 'Coban Rondo', 
         kota: 'Malang', 
         kategori: 'Air Terjun', 
-        gambar: 'https://picsum.photos/seed/cobanrondo/400/300', 
+        gambar: 'https://files.catbox.moe/gjbkeh.webp', //lokasi
         deskripsi: 'Air terjun yang indah dengan ketinggian sekitar 84 meter, dikelilingi oleh hutan pinus yang asri dan sejuk.', 
-        hargaTiket: 'Rp 15,000',
-        mapsUrl: 'https://maps.google.com/?q=Coban+Rondo,Malang',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Coban+Rondo,Malang&zoom=12&size=400x300&markers=color:green%7CCoban+Rondo,Malang',
+        hargaTiket: 'Rp 15,000 -  Rp 18.000',
+        mapsUrl: 'https://maps.app.goo.gl/W6EKKFHdpG5NQpEp6',
+        mapsImage: 'https://files.catbox.moe/ez46ut.jpg', //ss
         rating: 4.5
     },
 
@@ -261,76 +260,76 @@ const seedWisata = [
         nama: 'Gunung Bromo', 
         kota: 'Probolinggo', 
         kategori: 'Gunung', 
-        gambar: 'https://picsum.photos/seed/bromo/400/300', 
+        gambar: 'https://files.catbox.moe/vk08nk.webp', //lokasi
         deskripsi: 'Gunung berapi aktif yang terkenal dengan pemandangan matahari terbitnya yang spektakuler di atas lautan pasir dan kawah yang masih mengepul.', 
-        hargaTiket: 'Rp 290,000 (termasuk kendaraan)',
-        mapsUrl: 'https://maps.app.goo.gl/jPtnV5siYQ6qLckn7',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Bromo,East+Java&zoom=12&size=400x300&markers=color:green%7CBromo,East+Java',
-        rating: 4.8
-    },
-
-    {
-        id: 'jembatan-suramadu', 
-        nama: 'Jembatan Suramadu', 
-        kota: 'Surabaya', 
-        kategori: 'Arsitektur', 
-        gambar: 'https://picsum.photos/seed/suramadu/400/300', 
-        deskripsi: 'Jembatan kabel terpanjang di Indonesia yang menghubungkan Surabaya dengan Pulau Madura, menawarkan pemandangan indah terutama saat malam hari.', 
-        hargaTiket: 'Gratis',
-        mapsUrl: 'https://maps.google.com/?q=Jembatan+Suramadu,Surabaya',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Suramadu+Bridge,Surabaya&zoom=12&size=400x300&markers=color:green%7CSuramadu+Bridge,Surabaya',
-        rating: 4.4
-    },
-
-    {
-        id: 'jatim-park-2', 
-        nama: 'Jatim Park 2', 
-        kota: 'Malang', 
-        kategori: 'Taman Hiburan', 
-        gambar: 'https://picsum.photos/seed/jatimpark/400/300', 
-        deskripsi: 'Taman rekreasi edukatif yang terdiri dari Museum Satwa dan Batu Secret Zoo, cocok untuk liburan keluarga.', 
-        hargaTiket: 'Rp 130,000 (Museum Satwa), Rp 150,000 (Batu Secret Zoo)',
-        mapsUrl: 'https://maps.google.com/?q=Jatim+Park+2,Malang',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Jatim+Park+2,Malang&zoom=12&size=400x300&markers=color:green%7CJatim+Park+2,Malang',
-        rating: 4.6
-    },
-
-    {
-        id: 'kawah-ijen', 
-        nama: 'Kawah Ijen', 
-        kota: 'Banyuwangi', 
-        kategori: 'Gunung', 
-        gambar: 'https://picsum.photos/seed/ijen/400/300', 
-        deskripsi: 'Gunung berapi dengan fenomena api biru yang langka dan danau kawah berwarna toska, menjadi salah satu destinasi paling terkenal di Indonesia.', 
-        hargaTiket: 'Rp 75,000 (tiket masuk kawasan)',
-        mapsUrl: 'https://maps.google.com/?q=Kawah+Ijen,Banyuwangi',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Ijen+Crater,Banyuwangi&zoom=12&size=400x300&markers=color:green%7CIjen+Crater,Banyuwangi',
+        hargaTiket: 'Rp 54.000 ',
+        mapsUrl: 'https://maps.app.goo.gl/2iVKXuJdTFKwndKy7',
+        mapsImage: 'https://files.catbox.moe/igi2ls.jpg',
         rating: 4.7
     },
 
     {
-        id: 'pantai-papuma', 
-        nama: 'Pantai Papuma', 
-        kota: 'Jember', 
-        kategori: 'Pantai', 
-        gambar: 'https://picsum.photos/seed/papuma/400/300', 
-        deskripsi: 'Pantai berpasir putih dengan batu karang besar dan air jernih, favorit wisatawan karena suasana tenang dan pemandangannya yang memukau.', 
-        hargaTiket: 'Rp 10,000',
-        mapsUrl: 'https://maps.google.com/?q=Pantai+Papuma,Jember',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Papuma+Beach,Jember&zoom=12&size=400x300&markers=color:green%7CPapuma+Beach,Jember',
-        rating: 4.3
+        id: 'jembatan suramadu', 
+        nama: 'Jembatan Suramadu', 
+        kota: 'Surabaya', 
+        kategori: 'Arsitektur', 
+        gambar: 'https://files.catbox.moe/svsp6t.jpg', 
+        deskripsi: 'Jembatan kabel terpanjang di Indonesia yang menghubungkan Surabaya dengan Pulau Madura, menawarkan pemandangan indah terutama saat malam hari.', 
+        hargaTiket: 'Gratis',
+        mapsUrl: 'https://maps.google.com/?q=Jembatan+Suramadu,Surabaya',
+        mapsImage: 'https://files.catbox.moe/jv8sys.jpg',
+        rating: 4.4
     },
 
     {
-        id: 'taman-nasional-baluran', 
+        id: 'jatim park 2', 
+        nama: 'Jatim Park 2', 
+        kota: 'Malang', 
+        kategori: 'Taman Hiburan', 
+        gambar: 'https://files.catbox.moe/oj8m8m.jpg', 
+        deskripsi: 'Taman rekreasi edukatif yang terdiri dari Museum Satwa dan Batu Secret Zoo, cocok untuk liburan keluarga.', 
+        hargaTiket: 'Rp 125.000 (weekday) Rp 170.000 (weekend)',
+        mapsUrl: 'https://maps.app.goo.gl/QVr8VoaPUAvKGjNf6',
+        mapsImage: 'https://files.catbox.moe/d5bkmg.jpg',
+        rating: 4.7
+    },
+
+    {
+        id: 'kawah ijen', 
+        nama: 'Kawah Ijen', 
+        kota: 'Banyuwangi', 
+        kategori: 'Gunung', 
+        gambar: 'https://files.catbox.moe/6tyzx9.jpeg', 
+        deskripsi: 'Gunung berapi dengan fenomena api biru yang langka dan danau kawah berwarna toska, menjadi salah satu destinasi paling terkenal di Indonesia.', 
+        hargaTiket: 'Rp 20.000 - Rp 30.000',
+        mapsUrl: 'https://maps.app.goo.gl/PCWrx2wUWdvSCmvG8',
+        mapsImage: 'https://files.catbox.moe/bnug00.jpg',
+        rating: 4.8
+    },
+
+    {
+        id: 'pantai papuma', 
+        nama: 'Pantai Papuma', 
+        kota: 'Jember', 
+        kategori: 'Pantai', 
+        gambar: 'https://files.catbox.moe/p6zuzb.jpg', 
+        deskripsi: 'Pantai berpasir putih dengan batu karang besar dan air jernih, favorit wisatawan karena suasana tenang dan pemandangannya yang memukau.', 
+        hargaTiket: 'Rp 10.000 -Rp 25.000 ',
+        mapsUrl: 'https://maps.app.goo.gl/cH2NSqSxEg7VNzVx6',
+        mapsImage: 'https://files.catbox.moe/zjz0h1.jpg',
+        rating: 4.4
+    },
+
+    {
+        id: 'taman nasional baluran', 
         nama: 'Taman Nasional Baluran', 
         kota: 'Situbondo', 
         kategori: 'Taman Nasional', 
-        gambar: 'https://picsum.photos/seed/baluran/400/300', 
+        gambar: 'https://files.catbox.moe/jltmvm.jpeg', 
         deskripsi: 'Dijuluki "Africa van Java", taman nasional ini memiliki padang savana luas dan berbagai satwa liar seperti rusa, banteng, dan merak.', 
-        hargaTiket: 'Rp 25,000 (wisatawan lokal)',
-        mapsUrl: 'https://maps.google.com/?q=Taman+Nasional+Baluran,Situbondo',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Baluran+National+Park,Situbondo&zoom=12&size=400x300&markers=color:green%7CBaluran+National+Park,Situbondo',
+        hargaTiket: 'Rp 21.000 - Rp 31.000 ',
+        mapsUrl: 'https://maps.app.goo.gl/CZ7hBqzeUr7nnyZg7',
+        mapsImage: 'https://files.catbox.moe/nmrysm.jpg',
         rating: 4.5
     },
 
@@ -339,33 +338,35 @@ const seedWisata = [
         nama: 'Goa Gong', 
         kota: 'Pacitan', 
         kategori: 'Goa', 
-        gambar: 'https://picsum.photos/seed/goagong/400/300', 
+        gambar: 'https://files.catbox.moe/dkv3bl.jpg', 
         deskripsi: 'Goa tercantik di Asia Tenggara dengan stalaktit dan stalagmit yang megah serta pencahayaan warna-warni yang memperindah interiornya.', 
-        hargaTiket: 'Rp 12,000',
-        mapsUrl: 'https://maps.google.com/?q=Goa+Gong,Pacitan',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Gong+Cave,Pacitan&zoom=12&size=400x300&markers=color:green%7CGong+Cave,Pacitan',
+        hargaTiket: 'Rp 20.000',
+        mapsUrl: 'https://maps.app.goo.gl/FYxrVsdjiZ8ee5fH8',
+        mapsImage: 'https://files.catbox.moe/gwesnx.jpg',
         rating: 4.4
     },
 
     {
-        id: 'alun-alun-kediri', 
-        nama: 'Alun-Alun Kediri', 
-        kota: 'Kediri', 
-        kategori: 'Landmark Kota', 
-        gambar: 'https://picsum.photos/seed/alunkediri/400/300', 
-        deskripsi: 'Landmark kebanggaan warga Kediri yang ramai dengan kuliner, taman, dan dekat dengan ikon Simpang Lima Gumul.', 
-        hargaTiket: 'Gratis',
-        mapsUrl: 'https://maps.google.com/?q=Alun+Alun+Kediri',
-        mapsImage: 'https://maps.googleapis.com/maps/api/staticmap?center=Alun+Alun+Kediri&zoom=12&size=400x300&markers=color:green%7CAlun+Alun+Kediri',
-        rating: 4.2
+        
+    id: 'goa selomangleng kediri',
+    nama: 'Goa Selomangleng',
+    kota: 'Kediri',
+    kategori: 'Wisata Alam & Sejarah',
+    gambar: 'https://files.catbox.moe/8zofb3.jpg',
+    deskripsi: 'Goa bersejarah yang terletak di lereng Gunung Klotok, menawarkan suasana alami, relief kuno, dan panorama kota Kediri dari ketinggian.',
+    hargaTiket: 'Rp 5.000 - Rp 10.000',
+    mapsUrl: 'https://maps.app.goo.gl/vXqbXP5ze2wDnk4a7',
+    mapsImage: 'https://files.catbox.moe/q0n94g.jpg',
+    
+    rating: 4.1
     }
 ];
 
 const seedCarousel = [
-    {id:'img1', src:'https://picsum.photos/seed/carousel1/1200/600', alt:'Gunung Bromo saat matahari terbit'},
-    {id:'img2', src:'https://picsum.photos/seed/carousel2/1200/600', alt:'Jembatan Suramadu di malam hari'},
-    {id:'img3', src:'https://picsum.photos/seed/carousel3/1200/600', alt:'Keindahan kota Malang dari atas'},
-    {id:'img4', src:'https://picsum.photos/seed/carousel4/1200/600', alt:'Suasana ramai di pusat kota Surabaya'}
+    {id:'img1', src:'https://files.catbox.moe/qi1r7k.jpg', alt:'Gunung Bromo saat matahari terbit'},
+    {id:'img2', src:'https://files.catbox.moe/5e15e3.jpeg', alt:'Jembatan Suramadu di malam hari'},
+    {id:'img3', src:'https://files.catbox.moe/a0bxwh.jpeg', alt:'Keindahan pantai tiga warna'},
+    {id:'img4', src:'https://files.catbox.moe/xaprrh.jpg', alt:'Keindahan kawah ijen'}
 ];
 
 // Data Service Functions (TIDAK BERUBAH)
@@ -456,71 +457,6 @@ export const dataService = {
             return [];
         }
     },
-
-    // Bookmark functions dengan CACHE
-    // async getBookmarks() {
-    //     // ⬇️ PAKAI CACHE jika masih fresh
-    //     if (bookmarksCache && Date.now() - cacheTimestamp < CACHE_DURATION) {
-    //         console.log('📥 getBookmarks(): USING CACHE', bookmarksCache.length, 'items');
-    //         return bookmarksCache;
-    //     }
-        
-    //     try {
-    //         console.log('📥 getBookmarks(): FRESH FETCH');
-    //         const bookmarks = await db.collection('bookmarks').get();
-            
-    //         // ⬇️ UPDATE CACHE
-    //         bookmarksCache = bookmarks;
-    //         cacheTimestamp = Date.now();
-            
-    //         console.log('✅ getBookmarks(): Cache updated', bookmarks.length, 'items');
-    //         return bookmarks;
-    //     } catch (error) {
-    //         console.error('❌ Error getting bookmarks:', error);
-    //         return bookmarksCache || []; // Fallback ke cache jika error
-    //     }
-    // },
-
-    // async getBookmark(id) {
-    //     try {
-    //         return await db.collection('bookmarks').doc({ id }).get();
-    //     } catch (error) {
-    //         console.error('Error getting bookmark:', error);
-    //         return null;
-    //     }
-    // },
-
-    // async addBookmark(bookmark) {
-    //     try {
-    //         console.log('➕ addBookmark():', bookmark.id, bookmark.nama);
-    //         const result = await db.collection('bookmarks').add(bookmark, bookmark.id);
-            
-    //         // ⬇️ INVALIDATE CACHE - force fresh data next time
-    //         bookmarksCache = null;
-    //         console.log('🔄 Cache invalidated after add');
-            
-    //         return result;
-    //     } catch (error) {
-    //         console.error('Error adding bookmark:', error);
-    //         throw error;
-    //     }
-    // },
-
-    // async removeBookmark(id) {
-    //     try {
-    //         console.log('🗑️ removeBookmark():', id);
-    //         const result = await db.collection('bookmarks').doc({ id }).delete();
-            
-    //         // ⬇️ INVALIDATE CACHE - force fresh data next time  
-    //         bookmarksCache = null;
-    //         console.log('🔄 Cache invalidated after remove');
-            
-    //         return result;
-    //     } catch (error) {
-    //         console.error('Error removing bookmark:', error);
-    //         throw error;
-    //     }
-    // },
 
     // Search functionality
     async search(query) {
