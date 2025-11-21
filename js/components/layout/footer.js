@@ -14,10 +14,10 @@ export class Footer {
                         <!-- Logo dan Deskripsi -->
                         <div class="space-y-4">
                             <div class="flex items-center space-x-3">
-                                <img src="https://res.cloudinary.com/dz0hpyxbi/image/upload/v1763563036/post_auto/l01mlsj3kmbfvjgctj3f.png" 
+                                <img src="/assets/images/ezgif-2474b4d95745cc6c.webp" 
                                      alt="Logo Jawa Timur" 
                                      class="h-12 w-auto object-contain">
-                                <img src="https://res.cloudinary.com/dz0hpyxbi/image/upload/v1763562916/post_auto/oliavoro0kmjqlwou5oe.png" 
+                                <img src="https://files.catbox.moe/egjvcn.png" 
                                      alt="Logo SMK PGRI 1 Kota Kediri" 
                                      class="h-10 w-auto object-contain">
                             </div>
@@ -46,7 +46,7 @@ export class Footer {
                             <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
                                 <div class="bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center p-4">
                                     <div class="text-center">
-                                        <img src="https://res.cloudinary.com/dz0hpyxbi/image/upload/v1763704325/post_auto/df70eresnk8sbw8f9dvp.png" 
+                                        <img src="/assets/images/998477467277.png" 
                                             alt="Peta Jawa Timur" 
                                             class="max-w-full h-auto max-h-48 object-contain">
                                     </div>

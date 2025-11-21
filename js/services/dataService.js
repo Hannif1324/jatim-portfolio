@@ -45,15 +45,39 @@ export const CarouselImage = {
     alt: '',
 };
 
-// export const Bookmark = {
+// export const Logo = {
 //     id: '',
-//     type: '', // 'kuliner' | 'wisata' | 'kota'
 //     nama: '',
-//     kota: '',
-//     createdAt: 0,
+//     src: '',
 // };
 
-// Seed data dengan tambahan maps, URL, dan harga
+// // export const Bookmark = {
+// //     id: '',
+// //     type: '', // 'kuliner' | 'wisata' | 'kota'
+// //     nama: '',
+// //     kota: '',
+// //     createdAt: 0,
+// // };
+
+// // Seed data dengan tambahan maps, URL, dan harga
+// const seedLogo = [
+//     {
+//         id: 'logo-jatim',
+//         nama: 'Logo Jawa Timur',
+//         src: 'https://files.catbox.moe/7m67r3.png'
+//     },
+//     {
+//         id: 'logo-smk',
+//         nama: 'Logo SMK PGRI 1 Kediri',
+//         src: 'https://files.catbox.moe/egjvcn.png'
+//     },
+//     {
+//         id: 'gambar-utama',
+//         nama: 'Gambar Utama',
+//         src: 'https://files.catbox.moe/7cepe6.png'
+//     },
+// ];
+
 const seedKota = [
     { 
         id: 'surabaya', 
