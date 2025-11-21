@@ -46,12 +46,12 @@ export class Footer {
                             <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
                                 <div class="bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center p-4">
                                     <div class="text-center">
-                                        <img src="/assets/images/998477467277.png" 
+                                        <img src="/jatim-portfolio/assets/images/ezgif-8dc728442ee95c10.webp" 
                                             alt="Peta Jawa Timur" 
                                             class="max-w-full h-auto max-h-48 object-contain">
                                     </div>
                                 </div>
-                                <a href="/jatim-portfolio/assets/images/ezgif-8dc728442ee95c10.webp" 
+                                <a href="https://maps.app.goo.gl/sPHWMBWNPM6rWmuC7" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 class="block w-full mt-3 bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors text-center">
