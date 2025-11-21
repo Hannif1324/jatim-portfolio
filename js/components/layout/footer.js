@@ -14,10 +14,10 @@ export class Footer {
                         <!-- Logo dan Deskripsi -->
                         <div class="space-y-4">
                             <div class="flex items-center space-x-3">
-                                <img src="/assets/images/ezgif-2474b4d95745cc6c.webp" 
+                                <img src="/jatim-portfolio/assets/images/ezgif-2474b4d95745cc6c.webp" 
                                      alt="Logo Jawa Timur" 
                                      class="h-12 w-auto object-contain">
-                                <img src="https://files.catbox.moe/egjvcn.png" 
+                                <img src="/jatim-portfolio/assets/images/ezgif-2cba447038569b8c.webp" 
                                      alt="Logo SMK PGRI 1 Kota Kediri" 
                                      class="h-10 w-auto object-contain">
                             </div>
@@ -51,7 +51,7 @@ export class Footer {
                                             class="max-w-full h-auto max-h-48 object-contain">
                                     </div>
                                 </div>
-                                <a href="https://maps.app.goo.gl/sPHWMBWNPM6rWmuC7" 
+                                <a href="/jatim-portfolio/assets/images/ezgif-8dc728442ee95c10.webp" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 class="block w-full mt-3 bg-primary-500 hover:bg-primary-600 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors text-center">

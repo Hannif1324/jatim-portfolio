@@ -82,7 +82,7 @@ export class Navbar {
                             <a href="#home" class="flex items-center space-x-3 no-underline">
                                 <!-- Logo Jawa Timur -->
                                 <div class="flex items-center">
-                                    <img src="https://files.catbox.moe/7m67r3.png" 
+                                    <img src="/jatim-portfolio/assets/images/ezgif-2474b4d95745cc6c.webp" 
                                          alt="Logo Jawa Timur" 
                                          class="h-10 w-auto object-contain lg:h-12"
                                          loading="lazy">
@@ -90,7 +90,7 @@ export class Navbar {
                                 
                                 <!-- Logo SMK PGRI 1 Kota Kediri -->
                                 <div class="flex items-center border-l border-gray-300 dark:border-gray-600 pl-3">
-                                    <img src="https://files.catbox.moe/egjvcn.png" 
+                                    <img src="/jatim-portfolio/assets/images/ezgif-2cba447038569b8c.webp" 
                                          alt="Logo SMK PGRI 1 Kota Kediri" 
                                          class="h-8 w-auto object-contain lg:h-10"
                                          loading="lazy">
