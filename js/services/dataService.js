@@ -85,7 +85,7 @@ const seedKota = [
         populasi: 3137620, 
         coords: { lat: -7.250445, lng: 112.768845 }, 
         deskripsi: 'Surabaya adalah ibu kota Provinsi Jawa Timur dan merupakan kota metropolitan terbesar kedua di Indonesia. Dikenal sebagai Kota Pahlawan karena perannya dalam pertempuran kemerdekaan Indonesia.', 
-        gambar: 'https://res.cloudinary.com/dz0hpyxbi/image/upload/v1763634381/post_auto/yy59zuo4m2y90hz9nv6b.jpg', //fotokota
+        gambar: '/jatim-portfolio/assets/images/834589345348753453479c.webp', //fotokota
         mapsUrl: 'https://maps.app.goo.gl/7z5EscoVBWPH8t8z7',
         mapsImage: 'https://files.catbox.moe/g7qcv2.png' //ss
     },
